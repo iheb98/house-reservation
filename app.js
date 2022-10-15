@@ -6,43 +6,7 @@ const path = require('path');
 const passport = require('passport');
 const port = process.env.PORT || 3000;
 const cors = require('cors');
-// -------------------------------------------------- Backup section ------------------------------------------------------------
-
-
-//const cron = require('node-cron'), spawn = require('child_process').spawn;
-
-//let dbBackupTask = cron.schedule('*/5 * * * * *', () => {
-/*    let backupProcess = spawn('mongodump', [
-        '--db=Djotech',
-        '--archive=./db/backup/Djotech',
-        '--gzip'
-      ]);
-
-    backupProcess.on('exit', (code, signal) => {
-        if(code) 
-            console.log('Backup process exited with code ', code);
-        else if (signal)
-            console.error('Backup process was killed with singal ', signal);
-        else 
-            console.log('Successfully backedup the database')
-    });
-});
-*/
-
-
-// -------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
 require('dotenv/config');
-
-
 
 // **************************************** CORS ****************************************
 var allowedDomains = ['https://djotech.herokuapp.com', 'http://localhost:4200'];
