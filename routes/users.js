@@ -60,8 +60,8 @@ router.post('/verifieremail', (req, res) => {
     })
 })
 
-router.post('/verifierlogin', (req, res) => {
-    User.findOne({ login: req.body.login }).then(data => {
+router.post('/verifierusername', (req, res) => {
+    User.findOne({ username: req.body.username }).then(data => {
         if (data != null) {
             res.json(true)
         } else {
@@ -73,9 +73,9 @@ router.post('/verifierlogin', (req, res) => {
 
 
 router.post('/authenticate', (req, res, next) => {
-    const login = req.body.login;
+    const username = req.body.username;
     const password = req.body.password;
-    User.findOne({ login: login }, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
         if (!user) {
             return res.json({ success: false, error: "Utilisateur non trouvé" });
 
@@ -110,7 +110,7 @@ router.post('/savePassword', (req, res) => {
             if (err) res.json(err);
             reqBody.password = hash;
 
-            User.findOne({ login: reqBody.login }, (err, user) => {
+            User.findOne({ username: reqBody.username }, (err, user) => {
                 if (!user) {
                     return res.json({ success: false, error: "Utilisateur non trouvé" });
                 }
@@ -126,9 +126,9 @@ router.post('/savePassword', (req, res) => {
 })
 
 router.post('/checkPassword', (req, res, next) => {
-    const login = req.body.login;
+    const username = req.body.username;
     const password = req.body.password;
-    User.findOne({ login: login }, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
         if (!user) {
             return res.json({ success: false, error: "Utilisateur non trouvé" });
         }
@@ -151,9 +151,9 @@ router.post('/checkPassword', (req, res, next) => {
 });
 
 router.post('/checkPasswordAvailability', (req, res, next) => {
-    const login = req.body.login;
+    const username = req.body.username;
 
-    User.findOne({ login: login }, (err, user) => {
+    User.findOne({ username: username }, (err, user) => {
         if (!user) {
             return res.json({ success: false, error: "Utilisateur non trouvé" });
         }
@@ -179,13 +179,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', (req, res) => {
-    User.findById(req.params.id, (err, user) => {
-        user.password = "";
-        res.json(user);
-    });
-});
-
 
 
 router.put('/:id', (req, res) => {
@@ -195,7 +188,7 @@ router.put('/:id', (req, res) => {
         user.firstName = req.body.firstName;
         user.address = req.body.address;
         user.phone = req.body.phone;
-        user.login = req.body.login;
+        user.username = req.body.username;
         user.email = req.body.email;
         user.password = req.body.password ? req.body.password : user.password;
 
